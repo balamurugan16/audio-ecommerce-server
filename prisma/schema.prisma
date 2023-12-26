@@ -14,7 +14,42 @@ model User {
   id Int @default(autoincrement()) @id
   email String @unique
   name String
+
   searchHistory SearchHistory[]
+  reviews Review[]
+  cartItems CartItem[]
+}
+
+model Product {
+  id Int @default(autoincrement()) @id
+  name String @unique
+  price Float
+  description String
+  rating Float?
+
+  images Image[]
+  reviews Review[]
+  cartItems CartItem[]
+}
+
+model Image {
+  id Int @default(autoincrement()) @id
+  productId Int
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model Review {
+  id Int @default(autoincrement()) @id
+  rating Float
+  caption String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  productId Int
+  userId Int
+
+  product Product @relation(fields: [productId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model SearchHistory {
@@ -22,5 +57,16 @@ model SearchHistory {
   searchTerm String
   createdAt DateTime @default(now())
   userId Int
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model CartItem {
+  id Int @default(autoincrement()) @id
+  quantity Int
+  productId Int
+  userId Int
+
+  product Product @relation(fields: [productId], references: [id])
   user User @relation(fields: [userId], references: [id])
 }

@@ -20,6 +20,7 @@ model User {
 model SearchHistory {
   id Int @default(autoincrement()) @id
   searchTerm String
-  userId Int @unique
+  createdAt DateTime @default(now())
+  userId Int
   user User @relation(fields: [userId], references: [id])
 }

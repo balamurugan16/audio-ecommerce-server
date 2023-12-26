@@ -1,23 +1,35 @@
-# ------------------------------------------------------
-# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
-# ------------------------------------------------------
-
 type User {
   id: Int!
   email: String!
   name: String!
+  searchHistory: [SearchHistory!]!
+}
+
+type SearchHistory {
+  id: Int!
+  searchTerm: String!
+  createdAt: String!
+  user: User!
 }
 
 type Query {
   getUsers: [User!]
   getUser(id: Float!): User
+  getSearchHistory(userId: Int): [SearchHistory!]!
 }
 
 type Mutation {
   createUser(user: UserCreateInput!): User!
+  logSearchHistory(searchHistory: SearchHistoryCreateInput): SearchHistory!
+}
+
+input SearchHistoryCreateInput {
+  searchTerm: String!
+  userId: Int!
 }
 
 input UserCreateInput {
   email: String!
   name: String!
 }
+

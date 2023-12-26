@@ -14,4 +14,12 @@ model User {
   id Int @default(autoincrement()) @id
   email String @unique
   name String
+  searchHistory SearchHistory[]
+}
+
+model SearchHistory {
+  id Int @default(autoincrement()) @id
+  searchTerm String
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
 }

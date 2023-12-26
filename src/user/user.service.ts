@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
+import { UserCreateInput } from './user.schema';
 
 @Injectable()
 export class UserService {
@@ -18,7 +18,7 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  createUser(user: Prisma.UserCreateInput) {
+  createUser(user: UserCreateInput) {
     return this.prisma.user.create({
       data: user,
     });
